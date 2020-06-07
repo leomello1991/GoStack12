@@ -2,28 +2,24 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import User from './User';
 
-@Entity('appointments') //decorator pega a funça Entity e vai pegar a classe
+@Entity('users') //decorator pega a funça Entity e vai pegar a classe
 // e como parametro da entidade
-class Appointment {
+class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  provider_id: string;
-
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'provider_id' })
-  provider: User;
+  name: string;
 
   @Column('time with time zone')
-  date: Date;
+  email: string;
+
+  @Column('time with time zone')
+  password: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -32,4 +28,4 @@ class Appointment {
   updated_at: Date;
 }
 
-export default Appointment;
+export default User;
