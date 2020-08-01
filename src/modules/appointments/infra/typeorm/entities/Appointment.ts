@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import User from './User';
+import User from '@modules/users/infra/typeorm/entities/User';
 
 @Entity('appointments') //decorator pega a funça Entity e vai pegar a classe
 // e como parametro da entidade
@@ -27,6 +27,7 @@ class Appointment {
 
   @CreateDateColumn()
   created_at: Date;
+
 
   @UpdateDateColumn()
   updated_at: Date;
