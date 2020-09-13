@@ -8,7 +8,7 @@ let fakeStorageProvider:FakeStorageProvider;
 
 let updateUserAvatar: UpdateUserAvatarService;
 
-describe('CreateUser', () => {
+describe('UpdateUserAvatar', () => {
   beforeEach(() =>{
      fakeUsersRepository = new FakeUsersRepository();
      fakeStorageProvider = new FakeStorageProvider();
