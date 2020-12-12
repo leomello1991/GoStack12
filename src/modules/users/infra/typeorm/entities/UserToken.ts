@@ -4,10 +4,10 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  Generated
+  Generated,
 } from 'typeorm';
 
-@Entity('user_tokens') //decorator pega a funça Entity e vai pegar a classe
+@Entity('user_tokens') // decorator pega a funça Entity e vai pegar a classe
 // e como parametro da entidade
 class UserToken {
   @PrimaryGeneratedColumn('uuid')
@@ -18,8 +18,7 @@ class UserToken {
   token: string;
 
   @Column()
-  user_id: string
-
+  user_id: string;
 
   @CreateDateColumn()
   created_at: Date;

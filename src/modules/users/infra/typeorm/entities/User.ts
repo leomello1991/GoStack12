@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('users') //decorator pega a funça Entity e vai pegar a classe
+@Entity('users') // decorator pega a funça Entity e vai pegar a classe
 // e como parametro da entidade
 class User {
   @PrimaryGeneratedColumn('uuid')

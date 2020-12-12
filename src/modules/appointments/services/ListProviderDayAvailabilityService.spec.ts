@@ -1,79 +1,52 @@
-// yarn test src/modules/appointments/services/ListProviderMonthAvailabilityService.spec
-
-import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
+// yarn test src/modules/appointments/services/ListProviderDayAvailabilityService.spec
+import 'reflect-metadata';
 import AppError from '@shared/errors/AppError';
-import ListProviderMonthAvailabilityService from './ListProviderMonthAvailabilityService';
+import ListProviderDayAvailabilityService from '@modules/appointments/services/ListProviderDayAvailabilityService';
+import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
-let listProvidersMonthAvailability: ListProviderMonthAvailabilityService;
+let listProvidersDayAvailability: ListProviderDayAvailabilityService;
 
-describe('ListProviderMonthAvailability ', () => {
+describe('ListProviderDayAvailability ', () => {
   beforeEach(() => {
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
 
-    listProvidersMonthAvailability = new ListProviderMonthAvailabilityService(
+    listProvidersDayAvailability = new ListProviderDayAvailabilityService(
       fakeAppointmentsRepository,
     );
   });
 
-  it('should be able to list the month availability from provider ', async () => {
+  it('should be able to list the day availability from provider ', async () => {
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
+      user_id: '123',
       date: new Date(2020, 9, 13, 8, 0, 0),
     });
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
-      date: new Date(2020, 9, 13, 9, 0, 0),
-    });
-    await fakeAppointmentsRepository.create({
-      provider_id: 'user',
+      user_id: '123',
       date: new Date(2020, 9, 13, 10, 0, 0),
     });
-    await fakeAppointmentsRepository.create({
-      provider_id: 'user',
-      date: new Date(2020, 9, 13, 11, 0, 0),
-    });
-    await fakeAppointmentsRepository.create({
-      provider_id: 'user',
-      date: new Date(2020, 9, 13, 12, 0, 0),
-    });
-    await fakeAppointmentsRepository.create({
-      provider_id: 'user',
-      date: new Date(2020, 9, 13, 13, 0, 0),
-    });
-    await fakeAppointmentsRepository.create({
-      provider_id: 'user',
-      date: new Date(2020, 9, 13, 14, 0, 0),
-    });
-    await fakeAppointmentsRepository.create({
-      provider_id: 'user',
-      date: new Date(2020, 9, 13, 15, 0, 0),
-    });
-    await fakeAppointmentsRepository.create({
-      provider_id: 'user',
-      date: new Date(2020, 9, 13, 16, 0, 0),
-    });
-    await fakeAppointmentsRepository.create({
-      provider_id: 'user',
-      date: new Date(2020, 9, 13, 17, 0, 0),
-    });
-    await fakeAppointmentsRepository.create({
-      provider_id: 'user',
-      date: new Date(2020, 9, 14, 10, 0, 0),
-    });
-
-    const availability = await listProvidersMonthAvailability.execute({
+    const available = await listProvidersDayAvailability.execute({
       provider_id: 'user',
       year: 2020,
       month: 10,
+      day: 13,
     });
 
-    expect(availability).toEqual(
+    expect(available).toEqual(
       expect.arrayContaining([
-        { day: 14, availability: true },
-        { day: 13, availability: false },
-        { day: 13, availability: false },
-        { day: 14, availability: true },
+        { hour: 8, available: false },
+        { hour: 9, available: false },
+        { hour: 10, available: false },
+        { hour: 11, available: false },
+        { hour: 12, available: false },
+        { hour: 13, available: false },
+        { hour: 14, available: false },
+        { hour: 15, available: false },
+        { hour: 16, available: false },
+        { hour: 17, available: false },
+
       ]),
     );
   });
